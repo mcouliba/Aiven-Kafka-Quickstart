@@ -20,7 +20,7 @@ public class EventProducer {
 
     @POST
     @Path("/send")
-    @Outgoing("event-sample")
+    @Outgoing("<TOPIC_NAME>")
     @Produces
     public Multi<Record<String, Payload>> generate() {
         UUID uuid = UUID.randomUUID();
