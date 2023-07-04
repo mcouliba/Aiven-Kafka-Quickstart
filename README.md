@@ -24,7 +24,8 @@ Before you begin, make sure you have the following:
 ![select kafka](images/select-kafka.png)
 4. Choose the desired `cloud provider`, `service region`, and `service plan` for your Kafka service
 5. Provide the name of the service (e.g. kafka-xxxxx) and click `Create Service`
-![create kafka](images/create-kafka.png)
+<img src="images/create-kafka.png" width="350">
+
 6. Your Aiven Kafka Service is now provisionned. Please save the `Connection information`. We will use them later.
 ![kafka service up](images/kafka-service-up.png)
 
@@ -33,7 +34,8 @@ Before you begin, make sure you have the following:
 1. From your Kafka service details, click on `Topics` tab and click on `Add topic`.
 ![add topic](images/add-topic.png)
 2. Provide the name of the topic (e.g. event-sample) and click `Add topic`
-![add topic name](images/add-topic-name.png)
+<img src="images/add-topic-name.png" width="500">
+
 3. Your topic is now ready to receive data!
 ![topic overview](images/topic-overview.png)
 
