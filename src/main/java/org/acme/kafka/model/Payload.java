@@ -2,6 +2,7 @@ package org.acme.kafka.model;
 
 public class Payload {
 
+    public String timestamp;
     public long temperature;
     public long humidity;
     public long pressure;
@@ -13,7 +14,8 @@ public class Payload {
     */
     public Payload() { }
 
-    public Payload(long temperature, long humidity, long pressure, long luminosity) {
+    public Payload(String timestamp, long temperature, long humidity, long pressure, long luminosity) {
+        this.timestamp = timestamp;
         this.temperature = temperature;
         this.humidity = humidity;
         this.pressure = pressure;
@@ -23,6 +25,7 @@ public class Payload {
     @Override
     public String toString() {
         return "Event{" +
+                "timestamp='" + timestamp + '\'' +
                 "temperature='" + temperature + '\'' +
                 ", humidity='" + humidity + '\'' +
                 ", pressure='" + pressure + '\'' +

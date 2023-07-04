@@ -1,38 +1,35 @@
 package org.acme.kafka.producer;
 
+import java.util.Random;
 import java.util.UUID;
 
-import jakarta.ws.rs.GET;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-
-import org.acme.kafka.model.Event;
 import org.acme.kafka.model.Payload;
 
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
+import java.time.Instant;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.reactive.messaging.kafka.Record;
 
 @Path("/events")
+@ApplicationScoped
 public class EventProducer {
 
-    @Channel("event-sample")
-    Emitter<Event> eventEmitter; 
-
-    /**
-     * Endpoint to generate a new Event and send it to "event-sample" Kafka topic using the emitter.
-     */
     @POST
     @Path("/send")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String send() {
+    @Outgoing("event-sample")
+    @Produces
+    public Multi<Record<String, Payload>> generate() {
         UUID uuid = UUID.randomUUID();
-        String message = "hello";
-        String timestamp = "xxxxxx";
-        Payload payload = new Payload(0L,0L,0L,0L);
-        Event event = new Event(uuid.toString(), message, timestamp, payload);
-        eventEmitter.send(event); 
-        return event.toString(); 
+        String timestamp = Instant.now().toString();
+        Payload payload = new Payload(timestamp
+            , new Random().nextLong()
+            , new Random().nextLong()
+            , new Random().nextLong()
+            , new Random().nextLong());
+        return Multi.createFrom().item(Record.of(uuid.toString(), payload));
     }
 }
